@@ -8,11 +8,23 @@ const trpc = createTRPCClient<AppRouter>({
     links: [
         httpBatchLink({
             url: 'http://localhost:3000',
+            async headers() {
+
+                return {
+                    Authorization: "Bearer eycadsoii"
+                }
+            }
         }),
     ],
 });
 
-trpc.createTodo.mutate({
-    title: 'random',
-    description: 'random desc.'
-})
+async function main(){
+    const response = await trpc.createTodo.mutate({
+        title: 'random',
+        description: 'random desc.'
+    });
+    console.log('response',response);
+    
+}
+
+main();
